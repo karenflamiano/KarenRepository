@@ -17,6 +17,9 @@ namespace @try
             Console.WriteLine("pogi ako push with GitHub");
             Console.WriteLine("mj diaper");
             Console.WriteLine("pohgi mamark");
+            Console.WriteLine("pohgi mamark");
+            Console.WriteLine("pohgi mamark");
+            Console.WriteLine("pohgi mamark");
 
 
 
