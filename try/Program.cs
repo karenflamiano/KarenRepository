@@ -11,6 +11,8 @@ namespace @try
         static void Main(string[] args)
         {
             Console.WriteLine("sample push with GitHub");
+            Console.WriteLine("mamarkpogi");
+
         }
     }
 }
