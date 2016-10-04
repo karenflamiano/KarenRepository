@@ -10,8 +10,7 @@ namespace @try
     {
         static void Main(string[] args)
         {
-            Console.
-
+            Console.WriteLine("sample push with GitHub");
         }
     }
 }
