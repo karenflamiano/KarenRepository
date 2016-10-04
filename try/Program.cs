@@ -13,7 +13,9 @@ namespace @try
             Console.WriteLine("sample push with GitHub");
             Console.WriteLine("sample push with GitHub");
             Console.WriteLine("sample push with GitHub");
-            Console.WriteLine("sample push with GitHub");asdasd
+            Console.WriteLine("sample push with GitHub");
+            Console.WriteLine("pogi ako push with GitHub");
+
 
         }
     }
