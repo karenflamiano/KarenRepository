@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CommuterWazeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PreferredRoute">
+          <Key>
+            <PropertyRef Name="PreferredRouteID" />
+          </Key>
+          <Property Name="PreferredRouteID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="Route" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fare" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HashPassword" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PreferredRoute_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="PreferredRoute" Type="Self.PreferredRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="PreferredRoute">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreferredRoute_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="PreferredRoute" Type="Self.PreferredRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PreferredRoute">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommuterWazeDBModelStoreContainer">
+          <EntitySet Name="PreferredRoute" EntityType="Self.PreferredRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PreferredRoute_Route" Association="Self.FK_PreferredRoute_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="PreferredRoute" EntitySet="PreferredRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreferredRoute_UserAccount" Association="Self.FK_PreferredRoute_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="PreferredRoute" EntitySet="PreferredRoute" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommuterWazeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PreferredRoute">
+          <Key>
+            <PropertyRef Name="PreferredRouteID" />
+          </Key>
+          <Property Name="PreferredRouteID" Type="Int32" Nullable="false" />
+          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_PreferredRoute_Route" FromRole="PreferredRoute" ToRole="Route" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK_PreferredRoute_UserAccount" FromRole="PreferredRoute" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <Property Name="Route1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fare" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="PreferredRoutes" Relationship="Self.FK_PreferredRoute_Route" FromRole="Route" ToRole="PreferredRoute" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HashPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PreferredRoutes" Relationship="Self.FK_PreferredRoute_UserAccount" FromRole="UserAccount" ToRole="PreferredRoute" />
+        </EntityType>
+        <Association Name="FK_PreferredRoute_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="PreferredRoute" Type="Self.PreferredRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="PreferredRoute">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PreferredRoute_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="PreferredRoute" Type="Self.PreferredRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="PreferredRoute">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommuterWazeDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PreferredRoutes" EntityType="Self.PreferredRoute" />
+          <EntitySet Name="Routes" EntityType="Self.Route" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <AssociationSet Name="FK_PreferredRoute_Route" Association="Self.FK_PreferredRoute_Route">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="PreferredRoute" EntitySet="PreferredRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PreferredRoute_UserAccount" Association="Self.FK_PreferredRoute_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="PreferredRoute" EntitySet="PreferredRoutes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommuterWazeDBModelStoreContainer" CdmEntityContainer="CommuterWazeDatabaseEntities">
+          <EntitySetMapping Name="PreferredRoutes">
+            <EntityTypeMapping TypeName="CommuterWazeDBModel.PreferredRoute">
+              <MappingFragment StoreEntitySet="PreferredRoute">
+                <ScalarProperty Name="PreferredRouteID" ColumnName="PreferredRouteID" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="CommuterWazeDBModel.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="Route1" ColumnName="Route" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="CommuterWazeDBModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="HashPassword" ColumnName="HashPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

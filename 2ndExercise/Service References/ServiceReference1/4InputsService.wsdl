@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AddFourInputs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="input1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input3" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input4" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddFourInputsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddFourInputsResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AverageFourInputs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="input1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input3" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input4" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AverageFourInputsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AverageFourInputsResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SwapFourInputs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="input1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input3" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="input4" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SwapFourInputsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SwapFourInputsResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddFourInputsSoapIn">
+    <wsdl:part name="parameters" element="tns:AddFourInputs" />
+  </wsdl:message>
+  <wsdl:message name="AddFourInputsSoapOut">
+    <wsdl:part name="parameters" element="tns:AddFourInputsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AverageFourInputsSoapIn">
+    <wsdl:part name="parameters" element="tns:AverageFourInputs" />
+  </wsdl:message>
+  <wsdl:message name="AverageFourInputsSoapOut">
+    <wsdl:part name="parameters" element="tns:AverageFourInputsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SwapFourInputsSoapIn">
+    <wsdl:part name="parameters" element="tns:SwapFourInputs" />
+  </wsdl:message>
+  <wsdl:message name="SwapFourInputsSoapOut">
+    <wsdl:part name="parameters" element="tns:SwapFourInputsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="_4InputsServiceSoap">
+    <wsdl:operation name="AddFourInputs">
+      <wsdl:input message="tns:AddFourInputsSoapIn" />
+      <wsdl:output message="tns:AddFourInputsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AverageFourInputs">
+      <wsdl:input message="tns:AverageFourInputsSoapIn" />
+      <wsdl:output message="tns:AverageFourInputsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SwapFourInputs">
+      <wsdl:input message="tns:SwapFourInputsSoapIn" />
+      <wsdl:output message="tns:SwapFourInputsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="_4InputsServiceSoap" type="tns:_4InputsServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddFourInputs">
+      <soap:operation soapAction="http://tempuri.org/AddFourInputs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AverageFourInputs">
+      <soap:operation soapAction="http://tempuri.org/AverageFourInputs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SwapFourInputs">
+      <soap:operation soapAction="http://tempuri.org/SwapFourInputs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="_4InputsServiceSoap12" type="tns:_4InputsServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddFourInputs">
+      <soap12:operation soapAction="http://tempuri.org/AddFourInputs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AverageFourInputs">
+      <soap12:operation soapAction="http://tempuri.org/AverageFourInputs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SwapFourInputs">
+      <soap12:operation soapAction="http://tempuri.org/SwapFourInputs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="_4InputsService">
+    <wsdl:port name="_4InputsServiceSoap" binding="tns:_4InputsServiceSoap">
+      <soap:address location="http://localhost:64530/4InputsService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="_4InputsServiceSoap12" binding="tns:_4InputsServiceSoap12">
+      <soap12:address location="http://localhost:64530/4InputsService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

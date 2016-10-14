@@ -20,8 +20,7 @@ namespace @try
             Console.WriteLine("pohgi mamark");
             Console.WriteLine("pohgi mamark");
             Console.WriteLine("pohgi mamark");
-
-
+            
 
         }
     }

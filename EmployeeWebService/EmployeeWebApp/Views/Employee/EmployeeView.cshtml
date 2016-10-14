@@ -1,0 +1,146 @@
+﻿@model EmployeeWebApp.Models.EmployeeViewModel
+
+<div class="row">
+    <hr />
+
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1>Employee Table</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.EmployeeID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.MiddleName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.BirthDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.currentEmployee.Email)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.employeeList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmployeeID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MiddleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BirthDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="panel-footer">
+                @{
+                    ViewBag.count = Model.employeeList.Count();
+                }
+                <span>Count: @ViewBag.count</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <h4>EmployeeModel</h4>
+                    <div class="col-md-offset-9 col-md-3">
+                        <input type="button" value="Add" class="btn btn-primary" id="btnAddEmployee" />
+                    </div>
+                </div>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <h5>All fields with (*) are required fields.</h5>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.currentEmployee.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.currentEmployee.FirstName, new { htmlAttributes = new { @class = "form-control", id = "txtfirstName" } })
+                        @Html.ValidationMessageFor(model => model.currentEmployee.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.currentEmployee.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.currentEmployee.MiddleName, new { htmlAttributes = new { @class = "form-control", id = "txtmiddleName" } })
+                        @Html.ValidationMessageFor(model => model.currentEmployee.MiddleName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.currentEmployee.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.currentEmployee.LastName, new { htmlAttributes = new { @class = "form-control", id = "txtlastName" } })
+                        @Html.ValidationMessageFor(model => model.currentEmployee.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.currentEmployee.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.currentEmployee.BirthDate, new { htmlAttributes = new { @class = "form-control", id = "txtbirthdate" } })
+                        @Html.ValidationMessageFor(model => model.currentEmployee.BirthDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.currentEmployee.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.currentEmployee.Email, new { htmlAttributes = new { @class = "form-control", id = "txtemail" } })
+                        @Html.ValidationMessageFor(model => model.currentEmployee.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-8 col-md-4">
+                        <input type="button" value="Save" class="btn btn-primary" id="btnSaveEmployee" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var addEmployeeUrl = '@Url.Action("AddEmployee", "Employee")';
+        var selectEmployeeUrl = '@Url.Action("SelectEmployee", "Employee")';
+        var saveEmployeeUrl = '@Url.Action("SaveEmployee", "Employee")';
+        var deleteEmployeeUrl = '@Url.Action("DeleteEmployee", "Employee")';
+
+    </script>
+    <script src="~/Scripts/Employee.js"></script>
+}

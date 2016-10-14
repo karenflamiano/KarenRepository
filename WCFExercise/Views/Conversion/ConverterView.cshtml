@@ -1,0 +1,202 @@
+﻿@model WCFExercise.Models.ConversionModel
+
+@using (Html.BeginForm("ConverterView", "BMIManager", FormMethod.Post, new { id = "frmConverter", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+       
+            <h4>ConversionModel</h4>
+            <hr />
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            @*WEIGHT*@
+       
+            <div class="col-md-6">
+                <h4>WEIGHT</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.weight, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.weight, new { htmlAttributes = new { @class = "form-control", id = "txtWeight" } })
+                        @Html.ValidationMessageFor(model => model.weight, "", new { @class = "text-danger", id="txtWeightValidation"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.weightType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.weightType, new SelectList(new List<string> { "lbs", "kg" }), "Convert To", new { @id = "selectWeight", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.weightType, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.weightResult, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="button" id="weightResult" value="Convert" class="btn btn-default" />
+                        <span id="convertedWeigth"></span><span id="ConvertedWeigthUnit"></span>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+
+           
+                @*HEIGHT*@
+
+                <h4>HEIGHT</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.height, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.height, new { htmlAttributes = new { @class = "form-control", id = "txtHeight" } })
+                        @Html.ValidationMessageFor(model => model.height, "", new { @class = "text-danger", id = "txtHeightValidation" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.heightType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.heightType, new SelectList(new List<string> { "cm", "ft" }), "Convert To", new { @id = "selectHeight", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.heightType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.heightResult, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="button" id="heightResult" value="Convert" class="btn btn-default" />
+                        <span id="convertedHeigth"></span><span id="ConvertedHeigthUnit"></span>
+                    </div>
+                </div>
+            </div>
+
+                @*BMI*@
+
+        <h4>BMI</h4>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.bmiheight, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.bmiheight, new { htmlAttributes = new { @class = "form-control", id = "txtbmiHeight" } })
+                        @Html.ValidationMessageFor(model => model.bmiheight, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.bmiweight, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.bmiweight, new { htmlAttributes = new { @class = "form-control", id = "txtbmiWeight" } })
+                        @Html.ValidationMessageFor(model => model.bmiweight, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.bmiResult, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="button" id="bmiResult" value="Convert" class="btn btn-default" />
+                        <span id="convertedBmi"></span><span id="ConvertedBmiStatus"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+    <script>
+        var ConvertHeightUrl = '@Url.Action("ConvertHeight","Conversion")';
+        var ConvertWeightUrl = '@Url.Action("ConverterWeight", "Conversion")';
+        var ComputeBMI = '@Url.Action("ConvertBmi", "Conversion")';
+
+        $(document).ready(function () {
+
+            $('#weightResult').on('click', function () {
+
+                var data = {
+                    weight: $('#txtWeight').val(),
+                    weightUnit: $('#selectWeight').val()
+                }
+                $.ajax({
+                    url: ConvertWeightUrl,
+                    data: data,
+                    type: 'GET',
+                    success: function (data) {
+                        GetWeight(data);
+                    },
+                    error: function () {
+                        $('#txtWeightValidation').text("Ivalid Input");
+                        alert("Something went wrong!")
+                    }
+
+                })
+
+            })
+            function GetWeight(data) {
+                $('#convertedWeigth').text(data.finalWeight);
+                $('#ConvertedWeigthUnit').text(data.finalUnit);
+            }
+
+
+            $('#heightResult').on('click', function () {
+                var data = {
+                    height: $('#txtHeight').val(),
+                    heightUnit: $('#selectHeight').val()
+                }
+                $.ajax({
+                    url: ConvertHeightUrl,
+                    data: data,
+                    type: 'GET',
+                    success: function (data) {
+                        GetHeight(data);
+                    },
+                    error: function () {
+                        $('#txtHeightValidation').text("Ivalid Input");
+                        alert("Something went wrong!")
+                    }
+
+                })
+                function GetHeight(data) {
+                    $('#convertedHeigth').text(data.finalHeight);
+                    $('#ConvertedHeigthUnit').text(data.finalUnit);
+                }
+            })
+
+
+            $('#bmiResult').on('click', function () {
+                var data = {
+                    checkHeight: $('#txtbmiHeight').val(),
+                    checkWeight: $('#txtbmiWeight').val()
+                }
+
+                $.ajax({
+                    url: ComputeBMI,
+                    data: data,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#convertedBmi').text(data.computeBMI);
+                        $('#ConvertedBmiStatus').text(data.statusBMI);
+                    },
+                    error: function () {
+                        alert("Something went wrong!")
+                    }
+
+                })
+            })
+
+
+
+
+        })
+
+    </script>
+
+}
